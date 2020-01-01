@@ -6,7 +6,7 @@ Space Voyager is a game written in python.
 ## Play it
 clone repository:
 ```
-git clone https://github.com/rdilare/pygame-snake.git
+git clone https://github.com/rdilare/spaceVoyager.git
 ```
 
 ```
@@ -25,7 +25,7 @@ python3 app.py
 
 ## images
 
-![Game Play](/images/gamePlay.png)  ![Pause Menu](/images/pauseMenu.png)
+![Game Play](/images/gamePlay.gif)  ![Pause Menu](/images/pauseMenu.png)
 ![Main Menu](/images/mainMenu.png)  ![Score](/images/score.png)
 
 ## Game Controls:
