@@ -1,1 +1,1 @@
-[{"score": 47, "date": "01-Jan 2020"}, {"score": 20, "date": "01-Jan 2020"}, {"score": 19, "date": "01-Jan 2020"}, {"score": 17, "date": "01-Jan 2020"}, {"score": 14, "date": "01-Jan 2020"}]
+[{"date": "01-Jan 2020", "score": 47}, {"date": "01-Jan 2020", "score": 20}, {"date": "01-Jan 2020", "score": 19}, {"date": "01-Jan 2020", "score": 17}, {"date": "01-Jan 2020", "score": 14}]
