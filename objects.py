@@ -151,7 +151,7 @@ class Bullet:
 
 class Player:
 	def __init__(self):
-		self.pos = (200,300)
+		self.pos = (100,200)
 		self.angle = 0
 		self.vel = (0,0)
 		self.acc =  (0,0)

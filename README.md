@@ -25,14 +25,14 @@ python3 app.py
 
 ## images
 
-![GitHub Logo](/images/gamePlay.png)  ![GitHub Logo](/images/pauseMenu.png)
-![GitHub Logo](/images/mainMenu.png)  ![GitHub Logo](/images/score.png)
+![Game Play](/images/gamePlay.png)  ![Pause Menu](/images/pauseMenu.png)
+![Main Menu](/images/mainMenu.png)  ![Score](/images/score.png)
 
 ## Game Controls:
 
-- UP : w
-- Down : s
-- LEFT : a
-- RIGHT : d
-- FIRE : space
-- AIM : MOUSE
+- w : UP
+- s : Down
+- a : LEFT
+- d : RIGHT
+- space : FIRE
+- mouse : AIM
