@@ -24,15 +24,9 @@ class MainMenu(BaseWindow):
 		super().__init__()
 		self.size = (w,h) = (400,600)
 		self.bg = pygame.Surface((w,h))
-		self.bg.fill((100,50,190))
+		self.bg.fill((0,150,100))
 		self.menu = Menu((w//2-40,h//2-(20)*4),(80,40),["Play","Scores","Quit"],[changetoPlay,changetoScores,quit])
 		self.clock = pygame.time.Clock()
-		self.music=pygame.mixer.Sound('sounds/Lyonesse.ogg')
-		self.music.play()
-		self.music.set_volume(0.3)
-
-	def __del__(self):
-		self.music.stop()
 
 	def checkEvents(self,ev):
 		if ev.type == pygame.QUIT:

@@ -1,14 +1,13 @@
 import json
-import pygame, sys
 import datetime as dt
 
-pygame.init()
 
 def getScore():
 	with open("scores.txt","r") as f:
 		f.seek(0)
 		data = json.loads(f.read())
 		f.close()
+		data.sort(key = lambda i:i["score"], reverse=True)
 	return data
 
 def saveScore(score):

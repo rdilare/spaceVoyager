@@ -9,7 +9,7 @@ class Button:
 		# font = pygame.font.SysFont("comicsansms",20)
 		font = pygame.font.SysFont("poppins",20)
 		self.text = font.render(text, True, (0,0,0))
-		self.color = (0,100,250)
+		self.color = (50,200,50)
 		self.action = action
 
 		self.textrect =self.text.get_rect()
@@ -27,12 +27,12 @@ class Button:
 		w,h = self.size
 
 		if x < mouse[0] < x+w and y < mouse[1] < y+h:
-			self.color = (0,150,255)
+			self.color = (180,230,50)
 			
 			if click[0]==1 and self.action != None:
 				self.action()
 		else:
-			self.color = (0,100,250)
+			self.color = (50,200,50)
 
 
 class Menu:

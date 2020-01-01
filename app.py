@@ -14,7 +14,7 @@ def main():
 
 	windows={"MainMenu":MainMenu, "LeaderBoard":LeaderBoard, "GamePlay":GamePlay, "BaseWindow":BaseWindow}
 
-	Window.setWindow(GamePlay())
+	Window.setWindow(MainMenu())
 
 
 	running=True

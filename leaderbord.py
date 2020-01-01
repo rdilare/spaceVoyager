@@ -31,7 +31,7 @@ class LeaderBoard(BaseWindow):
 		font = pygame.font.SysFont("comicsansms", 25)
 
 		surf = pygame.Surface((400,600))
-		surf.fill((100,50,190))
+		surf.fill((0,150,100))
 
 
 		sr_title = font.render("Sr.", True, (0,0,0))

@@ -7,7 +7,7 @@ import pygame, sys
 from layout import Button, Menu
 from objects import *
 from window import BaseWindow, Window
-from handleScore import getScore
+from handleScore import getScore, saveScore
 
 pygame.init()
 pygame.mixer.init()
@@ -54,8 +54,12 @@ class GamePlay(BaseWindow):
 		self.bg.fill((200,250,150))
 		self.clock = pygame.time.Clock()
 		self.highScore = getScore()[0]["score"]
+		self.score = 0
 		self.fps = 15
-		self.enemy_count = 20
+		self.enemy_count = 15
+		self.paused = False
+		self.debries = []
+		self.player_alive = True
 
 		self._objects = [Player()]
 		player = self._objects[0]
@@ -63,17 +67,13 @@ class GamePlay(BaseWindow):
 		for i in range(self.enemy_count):
 			self._objects.append(Enemy())
 
-		self.pauseButton = Button((w//2+160-80,550),(80,40), "Pause",player.stop)
+		self.pauseButton = Button((w//2+160-80,550),(80,40), "Pause",self.stop)
 		self.mainMenuButton = Button((w//2-160,550),(80,40), "Menu",changetoMainMenu)
-		self.pause_menu = Menu((w//2-40,h//2-(20)*2),(80,40),["Resume","Menu"],[player.resume,changetoMainMenu])
-		self.restart_menu = Menu((w//2-40,h//2-(20)*2),(80,40),["restart","Menu"],[player.restart,changetoMainMenu])
-		self.music = pygame.mixer.Sound('sounds/TS - Beat Y.ogg')
-		self.music.play(loops=-1, maxtime=0, fade_ms=1000)
+		self.pause_menu = Menu((w//2-40,h//2-(20)*2),(80,40),["Resume","Menu"],[self.resume,changetoMainMenu])
+		self.restart_menu = Menu((w//2-40,h//2-(20)*2),(80,40),["restart","Menu"],[self.restart,changetoMainMenu])
 
 
 		allowedEvent()
-	def __del__(self):
-		self.music.stop()
 
 	def quit(self):
 		pygame.quit()
@@ -93,29 +93,63 @@ class GamePlay(BaseWindow):
 		self.pauseButton.checkEvents()
 		self.mainMenuButton.checkEvents()
 
-		# snake = self._objects[0]
-		# if snake.isstop and not snake.isdead:
-		# 	self.pause_menu.checkEvents()
-		# elif snake.isdead:
-		# 	self.restart_menu.checkEvents()
-		# else :
-		# 	pygame.mixer.unpause()
 
+
+		if self.paused and self.player_alive:
+			self.pause_menu.checkEvents()
+		elif not self.player_alive:
+			self.restart_menu.checkEvents()
 		
 
 	def update(self):
 
-		for i in range(self.enemy_count):
+		i = 0
+		while i!=self.enemy_count:
 			enemy = self._objects[i+1]
+			player = self._objects[0]
 			if enemy.exceeds_boundary():
 				self._objects.remove(enemy)
 				self._objects.append(Enemy())
+			elif player.hit(enemy):
+				enemy.damage()
+				if enemy.get_life()==0: 			# checking if enemy dies
+					for i in range(20):
+						self.debries.append(Enemy(enemy.get_pos(),4,color=(200,100,50)))
+					self._objects.remove(enemy)
+					self._objects.append(Enemy())
+					self.score+=1
+					player.increaseScore(1)
+					break;
+				i+=1
+			else:
+				i+=1
+
+
+
+		i=0
+		while i!=len(self.debries):
+			deb = self.debries[i]
+			if deb.exceeds_boundary():
+				self.debries.remove(deb)
+			else:
+				i+=1
+
 
 		player = self._objects[0]
 		player.update()
 
+#-----------------------------------checking playes's collision with enemies and boundaries-----------------------
+
+		if player.isCollide(self._objects[1:]) or player.exceeds_boundary():
+			self.player_alive = False
+			self.stop()
+
 		for o in self._objects:
 			o.update()
+		for deb in self.debries:
+			deb.update()
+
+
 
 	def draw(self,surf):
 		w,h = self.size
@@ -125,20 +159,45 @@ class GamePlay(BaseWindow):
 		for o in self._objects:
 			o.draw(surf)
 
+		for deb in self.debries:
+			deb.draw(surf)
+
 		# pygame.draw.rect(surf,(180,230,120),pygame.Rect((0,498), (400,600-498)))
 		# pygame.draw.line(surf,(50,50,50),(0,498),(400,498),1)
 
 		self.pauseButton.draw(surf)
 		self.mainMenuButton.draw(surf)
 
-		# if snake.isstop and not snake.isdead:
-		# 	color = pygame.Color(80, 30, 150, a=10)
-		# 	color.a=0
-		# 	# pygame.draw.rect(surf,color,pygame.Rect((w//2-140,h//2-(50)*2), (400,600-498)))
-		# 	self.pause_menu.draw(surf)
-		# elif snake.isdead:
-		# 	self.restart_menu.draw(surf)
 
-		# printText(surf,(0,0),"SCORE: {}".format(snake.score))
+
+		if self.paused and self.player_alive:
+			self.pause_menu.draw(surf)
+		elif not self.player_alive:
+			self.restart_menu.draw(surf)
+
+
+		printText(surf,(0,0),"SCORE: {}".format(self.score))
 		printText(surf,(250,0),"HIGHSCORE: {}".format(self.highScore))
 
+
+
+	def resume(self):
+		self.paused = False
+
+		for o in self._objects:
+			o.resume()
+
+		for deb in self.debries:
+			deb.resume()
+
+	def stop(self):
+		self.paused = True
+
+		for o in self._objects:
+			o.stop()
+
+		for deb in self.debries:
+			deb.stop()
+
+	def restart(self):
+		self.__init__()
