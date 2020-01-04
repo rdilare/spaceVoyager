@@ -1,8 +1,7 @@
 import pygame
 
 from window import BaseWindow, Window
-from mainMenu import MainMenu
-from layout import Button, printText
+from layout import Button
 
 pygame.init()
 
