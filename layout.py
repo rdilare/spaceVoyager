@@ -59,6 +59,12 @@ class Menu:
 			b.checkEvents()
 
 
+def printText(surf,pos,text):
+    font = pygame.font.SysFont("comicsansms", 25)
+    text = font.render(str(text), True, (10,10,10))
+    surf.blit(text,pos)
+
+
 
 
 

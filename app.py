@@ -4,6 +4,7 @@ from window import Window, BaseWindow
 from gameplay import GamePlay
 from leaderbord import LeaderBoard
 from mainMenu import MainMenu
+from controlsDescription import ControlsDescription
 
 pygame.init()
 
@@ -12,7 +13,7 @@ def main():
 	w,h = 400,600
 	screen = pygame.display.set_mode((w,h))
 
-	windows={"MainMenu":MainMenu, "LeaderBoard":LeaderBoard, "GamePlay":GamePlay, "BaseWindow":BaseWindow}
+	windows={"MainMenu":MainMenu, "LeaderBoard":LeaderBoard, "GamePlay":GamePlay, "ControlsDescription":ControlsDescription, "BaseWindow":BaseWindow}
 
 	Window.setWindow(MainMenu())
 
