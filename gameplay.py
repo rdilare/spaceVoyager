@@ -5,9 +5,9 @@
 import pygame, sys
 
 from layout import Button, Menu
+from handleScore import getScore, saveScore
 from objects import *
 from window import BaseWindow, Window
-from handleScore import getScore, saveScore
 
 pygame.init()
 pygame.mixer.init()

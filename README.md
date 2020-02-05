@@ -10,7 +10,7 @@ git clone https://github.com/rdilare/spaceVoyager.git
 ```
 
 ```
-cd pygame-snake
+cd spaceVoyager
 ```
 
 requirements(prefere using a virtual-environment):
